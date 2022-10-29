@@ -1,0 +1,6 @@
+[core]
+    remote = storage
+['remote "storeage"']
+    url = s3://fb-bitcoin-capstone/data/
+['remote "storage"']
+    url = s3://fb-bitcoin-capstone/data/
