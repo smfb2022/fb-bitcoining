@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import requests
 import tweepy as tw
+import glob
 from datasets import load_dataset, load_metric
 from transformers import (AutoModelForSequenceClassification, AutoTokenizer,
                           DataCollatorWithPadding, TextClassificationPipeline,
@@ -71,8 +72,11 @@ class RoBERTa_sentiment():
 model = RoBERTa_sentiment(model_name)
 LoadData = LoadTweets(config_dict)
 
-train_files = [join(input_dir+'/train/', item) for item in listdir(input_dir+'/train/') if isfile(join(input_dir+'/train/', item))]
-test_files = [join(input_dir+'/test/', item) for item in listdir(input_dir+'/test/') if isfile(join(input_dir+'/test/', item))]
+
+train_files=glob.glob(input_dir+'/train/'+'*.csv')
+test_files=glob.glob(input_dir+'/train/'+'*.csv')
+# train_files = [join(input_dir+'/train/', item) for item in listdir(input_dir+'/train/') if isfile(join(input_dir+'/train/', item))]
+# test_files = [join(input_dir+'/test/', item) for item in listdir(input_dir+'/test/') if isfile(join(input_dir+'/test/', item))]
 data_files={"train": train_files, "test": test_files}
 
 train, test, _ = LoadData.load_dataset(data_files, model.get_token)
@@ -106,6 +110,7 @@ trainer = Trainer(
     data_collator=data_collator,
     compute_metrics=compute_metrics,
 )
+trainer.train()
 
 trainer.save_model()
 mlflow.end_run()

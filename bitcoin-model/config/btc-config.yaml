@@ -5,4 +5,4 @@ model_name: 'ElKulako/cryptobert'
 inference: 'triton' #'hugging-face'
 output_dir: 'output'
 input_dir: 'data'
-epochs: 50
+epochs: 3
