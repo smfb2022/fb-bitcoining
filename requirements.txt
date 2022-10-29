@@ -11,3 +11,4 @@ torch
 tritonclient[http]
 sse_starlette
 jinja2
+mlflow
