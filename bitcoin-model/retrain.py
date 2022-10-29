@@ -75,13 +75,12 @@ LoadData = LoadTweets(config_dict)
 
 train_files=glob.glob(input_dir+'/train/'+'*.csv')
 test_files=glob.glob(input_dir+'/train/'+'*.csv')
-# train_files = [join(input_dir+'/train/', item) for item in listdir(input_dir+'/train/') if isfile(join(input_dir+'/train/', item))]
-# test_files = [join(input_dir+'/test/', item) for item in listdir(input_dir+'/test/') if isfile(join(input_dir+'/test/', item))]
 data_files={"train": train_files, "test": test_files}
 
 train, test, _ = LoadData.load_dataset(data_files, model.get_token)
 
-data_collator = DataCollatorWithPadding(tokenizer=model.tokenizer)
+data_collator = DataCollatorWithPadding(tokenizer=model.tokenizer, return_tensors='pt', max_length=256,
+                                        padding='max_length')
 
 metric = load_metric("accuracy")
 
