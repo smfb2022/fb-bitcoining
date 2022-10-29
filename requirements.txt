@@ -1,0 +1,13 @@
+uvicorn
+fastapi
+tweepy==4.10.1
+transformers
+python-dotenv
+scipy
+pyyaml
+pandas
+numpy
+torch
+tritonclient[http]
+sse_starlette
+jinja2
