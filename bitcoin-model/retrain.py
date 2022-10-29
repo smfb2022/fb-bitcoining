@@ -79,8 +79,10 @@ data_files={"train": train_files, "test": test_files}
 
 train, test, _ = LoadData.load_dataset(data_files, model.get_token)
 
-data_collator = DataCollatorWithPadding(tokenizer=model.tokenizer, return_tensors='pt', max_length=256,
-                                        padding='max_length')
+# data_collator = DataCollatorWithPadding(tokenizer=model.tokenizer, return_tensors='pt', max_length=256,
+#                                         padding='max_length')
+
+data_collator = DataCollatorWithPadding(tokenizer=model.tokenizer)
 
 metric = load_metric("accuracy")
 
