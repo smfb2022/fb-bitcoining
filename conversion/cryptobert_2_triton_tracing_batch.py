@@ -14,7 +14,7 @@ import boto3
 # models should  be bitcoin-model
 model_name = "model.pt"
 config_name = "config.pbtxt"
-root_path = "triton-model/base/"
+root_path = "triton-model/bitcoin-model/"
 model_path = root_path + "1/"
 model_filepath = model_path + model_name
 config_filepath = root_path + config_name
