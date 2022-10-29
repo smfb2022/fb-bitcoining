@@ -1,0 +1,5 @@
+outs:
+- md5: 876d4ee72b82a4bb10d19ddb1d9169b4.dir
+  size: 498961228
+  nfiles: 2
+  path: triton-model
