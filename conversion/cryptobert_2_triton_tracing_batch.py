@@ -7,7 +7,7 @@ import os
 from dagshub import dagshub_logger
 
 # model structure from the current directory "."
-# bitcoin-model
+# trition-model
 #   ├── bitcoin-model
 #   │   ├── 1
 #   │   │   └── model.pt
@@ -19,9 +19,7 @@ root_path = "triton-model/bitcoin-model/"
 model_path = root_path + "1/"
 model_filepath = model_path + model_name
 config_filepath = root_path + config_name
-#s3_bucket = "fb-bitcoin-capstone"
-s3_bucket = "shobha-mur-week1"
-
+s3_bucket = "fb-bitcoin-capstone"
 
 #mlflow.set_tracking_uri("http://ec2-44-203-88-57.compute-1.amazonaws.com:5000/")
 model_name = "ElKulako/cryptobert"
