@@ -19,10 +19,11 @@ root_path = "triton-model/bitcoin-model/"
 model_path = root_path + "1/"
 model_filepath = model_path + model_name
 config_filepath = root_path + config_name
-s3_bucket = "fb-bitcoin-capstone"
+#s3_bucket = "fb-bitcoin-capstone"
+s3_bucket = "shobha-mur-week1"
 
 
-
+#mlflow.set_tracking_uri("http://ec2-44-203-88-57.compute-1.amazonaws.com:5000/")
 model_name = "ElKulako/cryptobert"
 tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=True)
 sentence = "Bitcoin #BTC is going Up.  it is great"
@@ -98,16 +99,16 @@ def upload_file(file_name, bucket, store_as=None):
 
 
 if __name__ == "__main__":
-  os.environ['MLFLOW_EXPERIMENT_NAME'] = "cryptobert_2_triton_tracing_batch"
+  #os.environ['MLFLOW_EXPERIMENT_NAME'] = "cryptobert_2_triton_tracing_batch"
   save_bitcoin_model()
   mlflow.log_param("model name", model_name)
   mlflow.log_param("s3 bucket",s3_bucket)
   mlflow.log_param("model_filepath", model_filepath)
   upload_file(model_filepath, s3_bucket, store_as= model_filepath)
   upload_file(config_filepath, s3_bucket, store_as= config_filepath)
-  with dagshub_logger(metrics_path="logs/test_metrics.csv", hparams_path="logs/test_params.yml") as logger:
-          logger.log_hyperparams({"model-name" : model_name})
-          logger.log_hyperparams({"s3-bucket" : s3_bucket})
-          logger.log_hyperparams({"model-filepath" : model_filepath})
+  # with dagshub_logger(metrics_path="logs/test_metrics.csv", hparams_path="logs/test_params.yml") as logger:
+  #         logger.log_hyperparams({"model-name" : model_name})
+  #         logger.log_hyperparams({"s3-bucket" : s3_bucket})
+  #         logger.log_hyperparams({"model-filepath" : model_filepath})
 
 
