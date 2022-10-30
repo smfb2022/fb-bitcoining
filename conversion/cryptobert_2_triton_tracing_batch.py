@@ -23,7 +23,7 @@ config_filepath = root_path + config_name
 s3_bucket = "shobha-mur-week1"
 
 
-#mlflow.set_tracking_uri("http://ec2-44-203-88-57.compute-1.amazonaws.com:5000/")
+mlflow.set_tracking_uri("http://ec2-44-203-88-57.compute-1.amazonaws.com:5000/")
 model_name = "ElKulako/cryptobert"
 tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=True)
 sentence = "Bitcoin #BTC is going Up.  it is great"
