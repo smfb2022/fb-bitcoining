@@ -74,7 +74,7 @@ LoadData = LoadTweets(config_dict)
 
 
 train_files=glob.glob(input_dir+'/train/'+'*.csv')
-test_files=glob.glob(input_dir+'/train/'+'*.csv')
+test_files=glob.glob(input_dir+'/test/'+'*.csv')
 data_files={"train": train_files, "test": test_files}
 
 train, test, _ = LoadData.load_dataset(data_files, model.get_token)
@@ -113,5 +113,5 @@ trainer = Trainer(
 )
 trainer.train()
 
-trainer.save_model()
+#trainer.save_model()
 mlflow.end_run()
