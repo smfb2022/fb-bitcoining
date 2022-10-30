@@ -13,7 +13,8 @@ services:
             - 8003:8000
         env_file: 
             - .env
-
+        volumes:
+          - ./mlflowruns:/mlruns1
 
     bitcoin-main:
         build: .
@@ -36,5 +37,4 @@ services:
             - 8002:8002
         image: nvcr.io/nvidia/tritonserver:22.06-py3
         command:
-            ['tritonserver', '--model-repository=s3://fb-bitcoin-capstore/triton-model/']
-
+            ['tritonserver', '--model-repository=s3://fb-bitcoin-capstone/triton-model/'] 
