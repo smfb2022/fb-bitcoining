@@ -40,8 +40,6 @@ class BitcoinSentiment():
         with mlflow.start_run(nested=True):
             mlflow.log_metric('Accuracy', 1)
             print('Logged Metric')
-        shutil.copytree("./mlruns", "./mlruns1", dirs_exist_ok=False)
-        print('LOGGED METRIC')
 
         # get tweets and predict sentiments
         posts = self.dl.get_tweets(num_tweets)
