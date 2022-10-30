@@ -1,1 +1,3 @@
-optimizer: sgd
+model-filepath: triton-model/bitcoin-model/1/model.pt
+model-name: ElKulako/cryptobert
+s3-bucket: fb-bitcoin-capstone
