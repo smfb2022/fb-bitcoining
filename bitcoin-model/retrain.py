@@ -8,7 +8,8 @@ import pandas as pd
 import requests
 import tweepy as tw
 import glob
-from datasets import load_dataset, load_metric
+from datasets import load_dataset
+import evaluate
 from transformers import (AutoModelForSequenceClassification, AutoTokenizer,
                           DataCollatorWithPadding, TextClassificationPipeline,
                           Trainer, TrainingArguments)
@@ -79,12 +80,10 @@ data_files={"train": train_files, "test": test_files}
 
 train, test, _ = LoadData.load_dataset(data_files, model.get_token)
 
-# data_collator = DataCollatorWithPadding(tokenizer=model.tokenizer, return_tensors='pt', max_length=256,
-#                                         padding='max_length')
+data_collator = DataCollatorWithPadding(tokenizer=model.tokenizer, return_tensors='pt', max_length=256,
+                                         padding='max_length')
 
-data_collator = DataCollatorWithPadding(tokenizer=model.tokenizer)
-
-metric = load_metric("accuracy")
+metric = evaluate.load("accuracy")
 
 # We can add more metrics here
 def compute_metrics(pred):
@@ -95,10 +94,15 @@ def compute_metrics(pred):
 mlflow.autolog()
 
 training_args = TrainingArguments(
-  output_dir=output_dir,
+    output_dir=output_dir,
     overwrite_output_dir = True,
     num_train_epochs=epochs,
-    save_strategy='epoch',
+    save_total_limit = 3,
+    save_strategy = "epoch",
+    evaluation_strategy = "epoch",
+    load_best_model_at_end=True,
+    learning_rate = 5e-5,
+    warmup_steps=500,
     logging_steps=500,
 )
 
@@ -113,5 +117,5 @@ trainer = Trainer(
 )
 trainer.train()
 
-#trainer.save_model()
+trainer.save_model()
 mlflow.end_run()
