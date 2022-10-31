@@ -16,23 +16,13 @@ sentiments.
 https://huggingface.co/ElKulako/cryptobert
 
 # Dataset
-https://huggingface.co/datasets/ElKulako/stocktwits-crypto (Sept 1st Update)
-
-EDA and Cleanup done on the dataset using in training the model and for any retraining is as follows:
-* cashtags, hashtags, usernames,
-* URLs, crypto wallets,
-* Chinese, Korean and Japanese characters,
-(most) UTF-8 encoding issues
-* removed all posts shorter than 4 words
-* removed all duplicate posts
-* fixed spacing and punctuation issues, converted all text to lowercase
+https://huggingface.co/datasets/ElKulako/stocktwits-crypto (Nov 1 Update)
 
 
 # Getting Started
 TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
 1.	Installation process
     Download from Git : 
-    - https://github.com/jgpeoc/bitcoin-sentiment
     - https://github.com/smfb2022/fb-bitcoining
 2.	Software dependencies
     - Listed in requirements.txt
@@ -57,7 +47,8 @@ TODO: Describe and show how to build your code and run the tests.
         *  │   │   └── model.pt
         *  │   └── config.pbtxt
 
-- Data in dvc
+- Data in dvc 
+    The bitcoin tweets for training is in the data folder
     * Install DVC with (pip3 install dvc)
     * Install DVC with (pip3 install dvc[s3])
     * Initialize DVC (dvc init) in your repo
@@ -79,7 +70,7 @@ TODO: Describe and show how to build your code and run the tests.
 * note: update example: dvc remove model.dvc/ dvc add model
 
 
-- Retraining (wip)
+- Retraining 
     * In bitcoin-model/folder run "python retraining.py".  Data is already in the right place to retrain.  It already incorporates all the MLflow logging.
       - Use "dvc pull" command in the repo folder to get data and make sure the data folder in in bitcoin-model/data for retraining
 

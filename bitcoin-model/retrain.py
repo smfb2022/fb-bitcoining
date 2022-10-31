@@ -66,7 +66,7 @@ class RoBERTa_sentiment():
         return df
     
     def get_token(self, row):
-        return self.tokenizer(row["tweet"], padding="max_length", truncation=True)
+        return self.tokenizer(row["tweet"], padding="max_length", truncation=True, max_length=256)
 
 
 
