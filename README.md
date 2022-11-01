@@ -47,6 +47,10 @@ TODO: Describe and show how to build your code and run the tests.
         *  │   │   └── model.pt
         *  │   └── config.pbtxt
 
+
+![Data Pipeline](./pictures/DataPipeline.png)
+
+
 - Data in dvc 
     The bitcoin tweets for training is in the data folder
     * Install DVC with (pip3 install dvc)
