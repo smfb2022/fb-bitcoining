@@ -7,6 +7,10 @@
 Bitcoin attracts a lot of attention based on the social media networks.  The project is trying to learn MLOPs principes by fine-tuning a pre-trained model for better sentiment analysis of a bitcoin related tweer.  The eventual application of a model is to find the correlation between bitcoin price fluctuations against social media tweets.
 sentiments.
 
+* https://github.com/smfb2022/fb-bitcoining
+
+* https://dagshub.com/fb.capstone/fb-bitcoining
+
 # Performance Report
 - Week4 deliverable returns the specified number of bitcoin related tweets along with its sentiments and score.  It can be tested using fast API, docker locally or on EC2. 
 - Week5 Model Serving - Implementing Triton Serving of a Hugging Face Model on EC2 instance
