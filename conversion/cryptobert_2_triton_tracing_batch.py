@@ -97,7 +97,7 @@ def upload_file(file_name, bucket, store_as=None):
 
 
 if __name__ == "__main__":
-  #os.environ['MLFLOW_EXPERIMENT_NAME'] = "cryptobert_2_triton_tracing_batch"
+  mlflow.set_experiment("batch_serving")
   save_bitcoin_model()
   mlflow.log_param("model name", model_name)
   mlflow.log_param("s3 bucket",s3_bucket)
