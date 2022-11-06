@@ -1,7 +1,7 @@
 import os
 from os import listdir
 from os.path import isfile, join
-import dotenv
+#import dotenv
 import mlflow
 import numpy as np
 import pandas as pd
@@ -24,10 +24,11 @@ input_dir = config_dict['input_dir']
 output_dir = config_dict['output_dir']
 epochs = int(config_dict['epochs'])
 #Load env variables
-dotenv.load_dotenv(dotenv.find_dotenv())
+#dotenv.load_dotenv(dotenv.find_dotenv())
 # set mlflow env variables
-os.environ['MLFLOW_EXPERIMENT_NAME'] = "mlflow-trainer_cryptobert"
-os.environ['MLFLOW_FLATTEN_PARAMS'] = "1"
+#os.environ['MLFLOW_EXPERIMENT_NAME'] = "mlflow-trainer_cryptobert"
+#os.environ['MLFLOW_FLATTEN_PARAMS'] = "1"
+mlflow.set_experiment("batch_serving")
 
 class LoadTweets:
   def __init__(self, config_dict):
@@ -91,13 +92,13 @@ def compute_metrics(pred):
     predictions = np.argmax(logits, axis=-1)
     return metric.compute(predictions=predictions, references=labels)
 
-mlflow.autolog()
+#mlflow.autolog()
 
 training_args = TrainingArguments(
     output_dir=output_dir,
     overwrite_output_dir = True,
     num_train_epochs=epochs,
-    save_total_limit = 3,
+    save_total_limit = 1,
     save_strategy = "epoch",
     evaluation_strategy = "epoch",
     load_best_model_at_end=True,
@@ -115,7 +116,11 @@ trainer = Trainer(
     data_collator=data_collator,
     compute_metrics=compute_metrics,
 )
-trainer.train()
 
-trainer.save_model()
-mlflow.end_run()
+with mlflow.start_run():
+    mlflow.autolog()
+    trainer.train()
+
+    trainer.save_model()
+    mlflow.log_artifacts("output", artifact_path="hf_model")
+#mlflow.end_run()
