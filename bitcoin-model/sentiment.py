@@ -4,7 +4,7 @@ import shutil
 from utils.logging import getLogger
 from classifier import build_crypto_sentiment_analyzer, TritonBitcoinSentiment
 from utils.io import load_yaml
-from data.load import LoadTweets
+from utils.load import LoadTweets
 import mlflow
 from pathlib import Path
 
