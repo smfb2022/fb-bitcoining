@@ -4,5 +4,9 @@ env_config_path: '.'
 model_name: 'ElKulako/cryptobert'
 inference: 'triton' #'hugging-face'
 output_dir: 'output'
-input_dir: 'data'
-epochs: 250
+input_dir: '../dataset/v1'
+epochs: 1
+mlflow_expt: "batch_serving"
+mlflow_artifact: "hf_model"
+root_path: "triton-model/bitcoin-model/"
+s3_bucket: "shobha-mur-week1"   #"fb-bitcoin-capstone"

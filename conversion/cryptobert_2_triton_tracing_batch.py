@@ -4,9 +4,24 @@ import mlflow
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 import boto3
 import os
-from dagshub import dagshub_logger
 import sys
 from mlflow.tracking import MlflowClient
+import yaml
+
+
+def load_yaml(config_path = '../bitcoin-model/config/btc-config.yaml'):
+    """_summary_
+    Returns:
+        _type_: _description_
+    """
+    #config_path = './config/btc-config.yaml'
+    with open(config_path, "r") as f:
+        params = yaml.safe_load(f)
+
+    return params
+
+config_dict = load_yaml()
+print(config_dict)
 
 # model structure from the current directory "."
 # trition-model
@@ -23,6 +38,7 @@ model_filepath = model_path + model_name
 config_filepath = root_path + config_name
 #s3_bucket = "fb-bitcoin-capstone"
 s3_bucket = "shobha-mur-week1"
+
 
 model_name = "ElKulako/cryptobert"
 tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=True)
@@ -101,32 +117,25 @@ def download_mlflow_artifact(runid, artifact, local_path):
     client.download_artifacts(runid, artifact, local_path)
 
 if __name__ == "__main__":
-
-  mlflow.set_experiment("batch_serving")
+  
+  mlflow.set_experiment(config_dict["mlflow_expt"])
   runid_provided = False
   #mlflow_runid = "8dc049f234324330992b68ea3e36a8f3"
-  mlflow_artifact = "hf_model"
+  mlflow_artifact = config_dict["mlflow_artifact"]
   local_path = '.' 
   mlflow_runid = model_name
   if (len(sys.argv)) == 2:
        mlflow_runid = sys.argv[1]
-       model_name = "./hf_model"
+       model_name = local_path+"/"+mlflow_artifact
        runid_provided = True
   
   with mlflow.start_run():
       if runid_provided == True:
         download_mlflow_artifact(mlflow_runid, mlflow_artifact, local_path)
       save_bitcoin_model()
-
-      mlflow.log_param("model name", model_name)
-      mlflow.log_param("s3 bucket",s3_bucket)
-      mlflow.log_param("model_filepath", model_filepath)
-      mlflow.log_param("mlflow_runid", mlflow_runid)
+      mlflow.log_param("hugging face model", mlflow_runid)
+      mlflow.set_tags(config_dict)
       upload_file(model_filepath, s3_bucket, store_as= model_filepath)
       upload_file(config_filepath, s3_bucket, store_as= config_filepath)
-  # with dagshub_logger(metrics_path="logs/test_metrics.csv", hparams_path="logs/test_params.yml") as logger:
-  #         logger.log_hyperparams({"model-name" : model_name})
-  #         logger.log_hyperparams({"s3-bucket" : s3_bucket})
-  #         logger.log_hyperparams({"model-filepath" : model_filepath})
 
 

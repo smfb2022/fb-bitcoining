@@ -28,7 +28,7 @@ epochs = int(config_dict['epochs'])
 # set mlflow env variables
 #os.environ['MLFLOW_EXPERIMENT_NAME'] = "mlflow-trainer_cryptobert"
 #os.environ['MLFLOW_FLATTEN_PARAMS'] = "1"
-mlflow.set_experiment("batch_serving")
+#mlflow.set_experiment("batch_serving")
 
 class LoadTweets:
   def __init__(self, config_dict):
@@ -116,11 +116,12 @@ trainer = Trainer(
     data_collator=data_collator,
     compute_metrics=compute_metrics,
 )
-
+mlflow.set_experiment(config_dict["mlflow_expt"])
 with mlflow.start_run():
+    mlflow.set_tags(config_dict)
     mlflow.autolog()
     trainer.train()
 
     trainer.save_model()
-    mlflow.log_artifacts("output", artifact_path="hf_model")
+    mlflow.log_artifacts("output", artifact_path=config_dict["mlflow_artifact"])
 #mlflow.end_run()
