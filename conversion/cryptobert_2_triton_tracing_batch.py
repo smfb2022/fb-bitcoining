@@ -21,7 +21,6 @@ def load_yaml(config_path = '../bitcoin-model/config/btc-config.yaml'):
     return params
 
 config_dict = load_yaml()
-print(config_dict)
 
 # model structure from the current directory "."
 # trition-model
@@ -32,12 +31,11 @@ print(config_dict)
 # models should  be bitcoin-model
 model_name = "model.pt"
 config_name = "config.pbtxt"
-root_path = "triton-model/bitcoin-model/"
+root_path = config_dict["root_path"]
 model_path = root_path + "1/"
 model_filepath = model_path + model_name
 config_filepath = root_path + config_name
-#s3_bucket = "fb-bitcoin-capstone"
-s3_bucket = "shobha-mur-week1"
+s3_bucket = config_dict["s3_bucket"]
 
 
 model_name = "ElKulako/cryptobert"

@@ -16,6 +16,8 @@ from transformers import (AutoModelForSequenceClassification, AutoTokenizer,
 
 from utils.io import load_yaml
 
+os.environ["TOKENIZERS_PARALLELISM"] = "true"
+
 #let's load the params
 config_dict = load_yaml('./config/btc-config.yaml')
 model_name = config_dict['model_name']
