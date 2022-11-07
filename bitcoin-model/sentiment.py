@@ -5,7 +5,6 @@ from utils.logging import getLogger
 from classifier import build_crypto_sentiment_analyzer, TritonBitcoinSentiment
 from utils.io import load_yaml
 from utils.load import LoadTweets
-import mlflow
 from pathlib import Path
 
 logging.basicConfig(
@@ -36,10 +35,6 @@ class BitcoinSentiment():
 
 
     def predict(self, num_tweets = 10):
-
-        with mlflow.start_run(nested=True):
-            mlflow.log_metric('Accuracy', 1)
-            print('Logged Metric')
 
         # get tweets and predict sentiments
         posts = self.dl.get_tweets(num_tweets)
