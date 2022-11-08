@@ -92,6 +92,32 @@ TODO: Describe and show how to build your code and run the tests.
         * The model and data are reflected in the view because of dvc integraton (from git)
         * There is also one experiment tracked - to track the generation of the triton inference model (by using data logger and pushing logs/ folder into git)
 
+
+# Montoring and Observability
+
+1. Created a EC2 instance to stand the monitorting and observability components:
+
+- Promentheus
+- Grafana
+- cAdvisor
+- AlertManager
+- NodeExporter
+- Caddy
+
+2. Configured Prometheus to ingest metrics from Triton Inference Server
+
+3. Created Triton Inference Panels in Grafana dashboard
+
+- Success Request for 30 Seconds
+- Success Request Per Minute
+- Avereage queue time per Request
+- Failure Per 30 seconds
+
+Going to use failure alert for triggering retrianing
+We wanted to use BOXKITE to show the data drift through KL Divergence metric or KS-Test
+We are working to monitor Triton Inference docker containers metrics
+
+
 # References
 * Triton Server Conversion
 1. https://medium.com/nvidia-ai/how-to-deploy-almost-any-hugging-face-model-on-nvidia-triton-inference-server-with-an-8ee7ec0e6fc4
