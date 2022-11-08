@@ -95,7 +95,16 @@ TODO: Describe and show how to build your code and run the tests.
 
 # Montoring and Observability
 
-1. Created a EC2 instance to stand the monitorting and observability components:
+1.0 Stepup Steps
+
+- Create a new EC2 instance
+- Install Docker and Git
+- Go download the github repository from https://github.com/Einsteinish/Docker-Compose-Prometheus-and-Grafana
+- Update the prometheus.yml to reflec the docker metrics for triton server and Triton inference mertics
+- Run the docker compose comamnd to bring up the services
+- Login to Prometheus & Grafana UI
+
+1.1 Created a EC2 instance to stand the monitorting and observability components:
 
 - Promentheus
 - Grafana
