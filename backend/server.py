@@ -78,11 +78,12 @@ async def event_generator():
     """
     # get the predictions
     tweets_with_sentiments = requests.post('http://bitcoin-model-cntr:8000/bitcoin-sentiment') 
-    sentiments = tweets_with_sentiments #model.predict(loadTweets.get_tweets())
+    sentiments = tweets_with_sentiments.json() #model.predict(loadTweets.get_tweets())
     # get latest price
     usd = get_btcprice()
     #Merge both dictionaries
-    d = {**sentiments.to_dict(), **usd}
+    d = {**sentiments, **usd}
+    print(d)
     yield json.dumps(d)
 
 @app.websocket("/ws_sentiment_updates")
