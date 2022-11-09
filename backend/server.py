@@ -53,7 +53,7 @@ app = FastAPI()
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     response = requests.get('http://bitcoin-model-cntr:8000')
-    print(response)
+    #print(response)
     context = {"request": request}
     return templates.TemplateResponse("index.html", context)
 
@@ -83,7 +83,7 @@ async def event_generator():
     usd = get_btcprice()
     #Merge both dictionaries
     d = {**sentiments, **usd}
-    print(d)
+    #print(d)
     yield json.dumps(d)
 
 @app.websocket("/ws_sentiment_updates")
