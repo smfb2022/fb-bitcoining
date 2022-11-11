@@ -45,7 +45,7 @@ class BitcoinSentiment():
         else:
             preds = self.btc_analyzer(posts)
             df = pd.DataFrame(preds)
-            df.insert(0, "tweets", posts, True)
+            df.insert(0, "tweet", posts, True)
             #print(df)
 
         return df

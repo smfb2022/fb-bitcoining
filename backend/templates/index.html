@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/htmx.org@1.8.0"></script>
+  </head>
+  <body hx-sse="connect:/sentiment_updates">
+    <h1>Bitcoin Tweeter sentiment with &lt;/&gt;htmx, SSE & FastAPI</h1>
+    <p>Sentiments event</p>
+    <div hx-sse="swap:sentiment_data"></div>
+  </body>
+</html>

@@ -13,17 +13,26 @@ services:
             - 8003:8000
         env_file: 
             - .env
-
-    bitcoin-main:
-        build: .
-        container_name: bitcoin-main-cntr
-        image: bitcoin-main-img
+    
+    backend:
+        build: ./backend
+        container_name: backend-cntr
+        image: backend-img
         ports:
             - 8001:8000
+
+    bitcoin-main:
+        build: ./frontend
+        container_name: frontend-cntr
+        image: frontend-img
+        ports:
+            - 8501:8501
         env_file: 
             - .env
         depends_on:
+            - bitcoin-model
             - inference_server
+            - backend
 
 
     inference_server:
