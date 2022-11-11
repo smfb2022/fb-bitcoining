@@ -31,11 +31,11 @@ services:
             - .env
         depends_on:
             - bitcoin-model
-            - inference_server
+            - inference-server
             - backend
 
 
-    inference_server:
+    inference-server:
         container_name: triton
         env_file:
             .aws.env
