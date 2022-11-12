@@ -10,10 +10,11 @@ app = FastAPI(title='bitcoin-model')
 
 #The bitcoin-sentiment endpoint receives number of twitter posts to analyze and returns the posts and sentiments
 @app.post("/bitcoin-sentiment", tags=["Analysis"])
-async def sentiment(num_tweets: int = 10, triton_model_name: str = 'bitcoin-model'):
+async def sentiment(triton_model_name: str = 'bitcoin-model'):
 
+     #print(f'triton_model_name {triton_model_name}')
      #We run the model to get the tweets and analyze them
-     tweets_with_sentiments = model.predict(num_tweets=num_tweets, triton_model_name=triton_model_name, model_version='1')
+     tweets_with_sentiments = model.predict(triton_model_name=triton_model_name, model_version='1')
     
      #We encode the sentiments before returning it
      tweets_with_sentiments = tweets_with_sentiments.to_dict()

@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime
 
+WS_CONN_BASE = "ws://backend:8000/ws_sentiment_updates?model_name="
 WS_CONN = "ws://backend:8000/ws_sentiment_updates"
 
 def get_time():
@@ -89,6 +90,7 @@ def plot_price(container, df):
         st.line_chart(df, x='date', y='usd')
 
 async def consumer_sentiment(model, cols3, cols2, status):
+    WS_CONN = WS_CONN_BASE + model
     async with aiohttp.ClientSession(trust_env=True) as session:
         status.subheader(f"Connecting to {WS_CONN}")
         async with session.ws_connect(WS_CONN) as websocket:

@@ -34,8 +34,9 @@ class BitcoinSentiment():
 
 
 
-    def predict(self, num_tweets = 10, triton_model_name="bitcoin-model", model_version='1'):
+    def predict(self, triton_model_name="bitcoin-model", model_version='1'):
 
+        #print(f'triton_model_name {triton_model_name}')
         # get tweets and predict sentiments
         posts = self.dl.get_tweets(self.config_dict['num_tweets'])
         

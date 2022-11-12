@@ -72,12 +72,12 @@ def get_btcprice():
     return r.json()['bitcoin']
 
 # generator for websocket
-async def event_generator():
+async def event_generator(model_name="bitcoin"):
     """
     returns json
     """
     # get the predictions
-    tweets_with_sentiments = requests.post('http://bitcoin-model-cntr:8000/bitcoin-sentiment') 
+    tweets_with_sentiments = requests.post("http://bitcoin-model-cntr:8000/bitcoin-sentiment?triton_model_name="+model_name) 
     sentiments = tweets_with_sentiments.json() #model.predict(loadTweets.get_tweets())
     # get latest price
     usd = get_btcprice()
@@ -87,11 +87,11 @@ async def event_generator():
     yield json.dumps(d)
 
 @app.websocket("/ws_sentiment_updates")
-async def websocket_endpoint(websocket: WebSocket):
+async def websocket_endpoint(websocket: WebSocket, model_name="bitcoin"):
     await manager.connect(websocket)
     try:
         while True:
-            async for data in event_generator():
+            async for data in event_generator(model_name):
                 await websocket.send_json(data)
                 await asyncio.sleep(10)
     except WebSocketDisconnect:
