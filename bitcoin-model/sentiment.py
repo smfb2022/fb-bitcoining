@@ -37,7 +37,7 @@ class BitcoinSentiment():
     def predict(self, num_tweets = 10):
 
         # get tweets and predict sentiments
-        posts = self.dl.get_tweets(num_tweets)
+        posts = self.dl.get_tweets(self.config_dict['num_tweets'])
         
         if (self.config_dict['inference'] == 'triton'):
             df = self.tis.run_inference(posts)
