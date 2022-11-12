@@ -19,10 +19,13 @@ emotion_dict = {
 
 class TritonBitcoinSentiment():
 
-    def __init__(self, url='127.0.0.1:8000', model_name='bitcoin-model',  model_version='1'):
+    def __init__(self, url='127.0.0.1:8000', triton_model_name='bitcoin-model',  model_version='1'):
         self.input_name = ['input__0', 'input__1']
         self.output_name = 'output__0'
-        self.model_name = model_name
+        if "cryptobert" in triton_model_name:
+            self.model_name = 'cryptobert-model'
+        else:
+            self.model_name = 'bitcoin-model'
         self.url = url
         self.model_version = model_version
         VERBOSE = False
@@ -38,8 +41,11 @@ class TritonBitcoinSentiment():
         #     model_name=model_name, model_version=model_version)
         #print(f"model_config {model_config}")
 
-    def run_inference(self, tweets):
-
+    def run_inference(self, tweets, triton_model_name="bitcoin-model", model_version='1'):
+        if "cryptobert" in triton_model_name:
+            self.model_name = 'cryptobert-model'
+        else:
+            self.model_name = 'bitcoin-model'
         sentiment_list = []
 
         # model_metadata = self.triton_client.get_model_metadata(
