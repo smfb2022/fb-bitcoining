@@ -1,9 +1,12 @@
 import streamlit as st
 import asyncio
 from utils import consumer_sentiment
+from PIL import Image
 
+im = Image.open("./icon.png")
 st.set_page_config(
-    page_title="Bitcoin Tweeter sentiment with &lt;/&gt;htmx, Websocket, FastAPI & streamlit", 
+    page_title="Bitcoin Tweeter sentiment with &lt;/&gt;htmx, Websocket, FastAPI & streamlit",
+    page_icon=im,
     layout="wide")
 
 #dictionary for store prices

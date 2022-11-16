@@ -10,6 +10,7 @@ COPY requirements.txt ./requirements.txt
 
 COPY ui.py ./ui.py
 COPY utils.py ./utils.py
+COPY icon.png ./icon.png
 
 RUN TMPDIR=~/tmp/ pip3 install --cache-dir=~/tmp/ -r requirements.txt
 
