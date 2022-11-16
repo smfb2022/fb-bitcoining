@@ -80,14 +80,17 @@ def plot_sentiment(container, df):
         st.pyplot(fig)
     return dict_counts
 
-def plot_price(container, df):
+def plot_price(container):
     #Let's clear the container
     if 'container_price' in st.session_state:
         st.session_state.container_price.empty()
     st.session_state.container_price = container.empty()
     #Plot again
     with st.session_state.container_price.container():
-        st.line_chart(df, x='date', y='usd')
+        fig, ax = plt.subplots()
+        ax.plot("date", "usd", data=st.session_state.dic_price, marker='o', alpha=0.4)
+        fig.autofmt_xdate()
+        st.pyplot(fig)
 
 async def consumer_sentiment(model, cols3, cols2, status):
     WS_CONN = WS_CONN_BASE + model
@@ -110,4 +113,4 @@ async def consumer_sentiment(model, cols3, cols2, status):
                 st.session_state.dic_price['usd'].append(usd)
                 st.session_state.dic_price['date'].append(get_time())
                 df_price = pd.DataFrame(st.session_state.dic_price)
-                plot_price(cols2[1], df_price)
+                plot_price(cols2[1])
